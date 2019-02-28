@@ -3,10 +3,10 @@ import sys
 import random
 
 dict_stats = {
-    'health_points': 0,
-    'food_points': 0,
-    'water_points': 0,
-    'money_points': 0
+    'health_points': 0, # очки здоровья
+    'food_points': 0,   # очки голода
+    'water_points': 0,  # очки жажды
+    'money_points': 0   # кол-во денег
 }
 
 string_health = 'Health: {}'
@@ -14,7 +14,7 @@ string_food = 'Food: {}'
 string_water = 'Water: {}'
 string_money = 'Money: {}'
 
-greeting_in_the_beginning = ('''
+greeting_in_the_beginning = ('''    
     Hello. It's simple RPG game where you are awake and you can choose:
     a) Explore your house, where you are wake up
     b) Go to the Taverna, and have fun!
@@ -24,26 +24,26 @@ greeting_in_the_beginning = ('''
     1. Easy
     2. Medium
     3. Hard
-    ''')
+    ''')    # приветствие в начале игры
 
-action_main_moves = ('''
+action_main_moves = ('''    
            Your main moves:
            1. Explore your home
            2. Go to the Taverna
            3. Continue to sleep
            Input your move to continue the game:
-           ''')
+           ''') # основные действия в начале игры
 
-actions_in_home = ('''
+actions_in_home = ('''      
        Your moves:
        a. Go to the safe, take the money
        b. Go to the kitchen, take some food, if y r hungry.
        c. Go to the bed, and takeover of sleep.
        d. Stop explore the home and go to Taverna.
        Input your move to continue the game:
-       ''')
+       ''') # действия в доме
 
-actions_in_taverna = ('''
+actions_in_taverna = ('''   
                    Your moves:
                    You are in Taverna. Explore it. 
                    a. Go to the bar.
@@ -52,33 +52,33 @@ actions_in_taverna = ('''
                    d. Go to the music station.
                    e. Go home.
                    Input your move to continue the game.
-                   ''')
+                   ''') # действия в таверне
 
-choose_lvl = ('''Choose your LVL of game: 
+choose_lvl = ('''Choose your LVL of game:  
                  1. Easy
                  2. Medium
                  3. Hard
-              ''')
+              ''')   # выбор уровня 
 
 
-def stats_of_player():
+def stats_of_player():  # вывод количества здоровья игрока, голода, жажды, денег
     print('\n ', string_health.format(dict_stats['health_points']))
     print(' ', string_food.format(dict_stats['food_points']))
     print(' ', string_water.format(dict_stats['water_points']))
     print(' ', string_money.format(dict_stats['money_points']))
 
 
-def increase_parameter(parameter, delta):
+def increase_parameter(parameter, delta):   # 0 <= parametr <= 100
     dict_stats[parameter] += delta
     dict_stats[parameter] = min(100, dict_stats[parameter])
 
 
-def decrease_parameter(parameter, delta):
+def decrease_parameter(parameter, delta):   # 0 <= parametr <= 100
     dict_stats[parameter] -= delta
     dict_stats[parameter] = max(0, dict_stats[parameter])
 
 
-def game_lvl_selection(self, points=100):
+def game_lvl_selection(self, points=100):   # выбор уровня в начале игры
     print(self)
     player_lvl_selection = int(input())
     points //= player_lvl_selection
@@ -89,11 +89,11 @@ def game_lvl_selection(self, points=100):
     dict_stats['money_points'] = points
 
 
-def wake_up_at_start_of_game():
+def wake_up_at_start_of_game(): # пробуждение в начале игры
     stats_of_player()
 
 
-def animation_of_sleeping():
+def animation_of_sleeping():    # анимация выполнения сна
     for x in range(100):
         time.sleep(0.1)
         sys.stdout.write(f'\r{x + 1}%')
@@ -101,7 +101,7 @@ def animation_of_sleeping():
         sys.stdout.flush()
 
 
-def animation_of_walking(s=0.1):
+def animation_of_walking(s=0.1):    # анимация выполнения действия
     for y in range(100):
         time.sleep(s)
         sys.stdout.write(f'\r{y + 1}%')
@@ -109,7 +109,7 @@ def animation_of_walking(s=0.1):
         sys.stdout.flush()
 
 
-def variation_of_actions_home(self, redress_hp=1, eat_food=4, drink_water=2, take_money=100):
+def variation_of_actions_home(self, redress_hp=1, eat_food=4, drink_water=2, take_money=100):   # действия в доме
     stats_of_player()
     print(self)
     move = str(input()).lower()
@@ -141,7 +141,7 @@ def variation_of_actions_home(self, redress_hp=1, eat_food=4, drink_water=2, tak
     variation_of_actions_home(actions_in_home)
 
 
-def variation_of_actions_taverna(self):
+def variation_of_actions_taverna(self): # действия в таверне
     if dict_stats['health_points'] > 0:
         animation_of_walking(0.01)
         stats_of_player()
@@ -256,7 +256,7 @@ def continue_of_sleeping(self):
     print(self)
 
 
-def moves_in_game():
+def moves_in_game(): # выбор действия в игре
     move = str(input())
     if move == '1':
         variation_of_actions_home(actions_in_home)
@@ -268,7 +268,7 @@ def moves_in_game():
         continue_of_sleeping(action_main_moves)
 
 
-def death_in_game():
+def death_in_game(): # конец игры
     print(string_health + str(dict_stats['health_points']) + '\n' +
           string_food + str(dict_stats['food_points']) + '\n' +
           string_water + str(dict_stats['water_points']) + '\n' +
