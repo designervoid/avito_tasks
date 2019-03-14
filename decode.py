@@ -69,7 +69,3 @@ def test_decode_third(test_input, result):
 def test_decode_first(test_input, result):
     assert decode(test_input) == result.upper()
     print_in_file(test_input, result)
-
-
-if __name__ == '__main__':
-    pytest.main([__file__])
