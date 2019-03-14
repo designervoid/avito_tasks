@@ -1,4 +1,4 @@
-from schema import Schema, And, Use, SchemaError
+from schema import Schema, And, Use
 import logging
 import logger
 import re
@@ -11,12 +11,6 @@ schema_host = Schema(And(Use(str), lambda host: len(str(host)) > 0))
 schema_port = Schema(And(Use(int), lambda port: 0 < port))
 
 validated_base_years = {'1': '2020', '2': '2000'}
-
-#DEBUG
-#INFO
-#WARNING
-#ERROR
-#CRITICAL
 
 logger = logging.getLogger(__name__)
 
@@ -72,11 +66,10 @@ def host_check(request):
 
 @validate(schema_port)
 def port_check(request) -> int:
-    return 0 < request
+    return 1023 < request < 65536
 
 
-def run_server(host='example.com///', port=30001):
-    year = 400
+def run_server(host='example.com', port=30001, year=400):
     try:
         logger.info('Start server')
         if host_check(host) is True:
@@ -96,6 +89,7 @@ def run_server(host='example.com///', port=30001):
     except Exception as e:
         logger.error('Invalid data')
         raise e
+
 
 if __name__ == '__main__':
     run_server()

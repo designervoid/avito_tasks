@@ -1,8 +1,6 @@
 from typing import List, Tuple
 import pytest
 
-class TestMode(object):
-
 
 def fit_transform(*args: str) -> List[Tuple[str, List[int]]]:
     """
@@ -26,5 +24,44 @@ def fit_transform(*args: str) -> List[Tuple[str, List[int]]]:
     return transformed_rows
 
 
-if __name__ == '__main__':
-    pytest.__file__
+def test_equal():
+    var = ['A', 'B', 'C', 'D']
+    test_values_eq = var
+    exp_transformed_cities = [
+        ('A', [0, 0, 0, 1]),
+        ('B', [0, 0, 1, 0]),
+        ('C', [0, 1, 0, 0]),
+        ('D', [1, 0, 0, 0])
+    ]
+    transformed_cities = fit_transform(test_values_eq)
+    assert transformed_cities == exp_transformed_cities
+
+
+def test_not_equal():
+    var = ['A', 'B', 'C']
+    test_values_not_eq = var
+    exp_transformed_cities = [
+        ('A', [0, 0, 0]),
+        ('B', [0, 0, 0]),
+        ('C', [0, 0, 0])
+    ]
+    transformed_cities = fit_transform(test_values_not_eq)
+    assert transformed_cities != exp_transformed_cities
+
+
+def test_not_in():
+    var = ['Detroit', 'Petersburg']
+    test_values_not_in = var
+    exp_transformed_cities = [
+        ('Moscow', [0, 1]),
+        ('New York', [1, 0]),
+    ]
+    transformed_cities = fit_transform(test_values_not_in)
+    assert transformed_cities not in exp_transformed_cities
+
+
+def test_error():
+    x = '1'
+    assert fit_transform(x)
+    with pytest.raises(TypeError):
+        fit_transform(int(x))
