@@ -1,5 +1,5 @@
 ___________________________________________________________________________________________________
-ISSUE 2 FILE => server_MAI.py, file.log (custom server log)
+ISSUE_2_FILES is (server_MAI.py, file.log)
 
 server_MAI.py
 
@@ -21,7 +21,7 @@ server_MAI.py
 
 ___________________________________________________________________________________________________
 
-ISSUE 3 FILES => encode.py, decode.py, one_hot_encoder.py, one_hot_pytest.py
+ISSUE3_FILES is (encode.py, decode.py, one_hot_encoder.py, one_hot_pytest.py)
 
 ===================================================================================================
 
