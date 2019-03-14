@@ -1,11 +1,9 @@
 import doctest
 
-
 dict_test_string_encode = {'1': 'SOS',
                            '2': 'SOs',
                            '3': 'SoS',
                            '4': 'sos'}
-
 
 LETTER_TO_MORSE = {
     'A': '.-', 'B': '-...', 'C': '-.-.',
@@ -29,14 +27,27 @@ LETTER_TO_MORSE = {
 def encode(message: str) -> str:
     """
     doctest
+
     >>> encode(dict_test_string_encode['1'])
-    encoded_message = ... --- ...
+    '... --- ...'
+
+    >>> encode(dict_test_string_encode['$'])
+    Traceback (most recent call last):
+    ...
+    KeyError: Invalid data
+
+    >>> encode(dict_test_string_encode['4'])
+    Traceback (most recent call last):
+    ...
+    KeyError: Low register
+
     >>> try:
     ...     encode(dict_test_string_encode['4'])
-    ... except KeyError:
-    ...     logging.exception('LOW REGISTER')
+    ... except Exception:
+    ...     Exception('LOW REGISTER')
+
     >>> encode(dict_test_string_encode['4'].upper())
-    encoded_message = ... --- ...
+    '... --- ...'
     """
 
     encoded_signs = [
@@ -46,5 +57,7 @@ def encode(message: str) -> str:
     return ' '.join(encoded_signs)
 
 
+if __name__ == '__main__':
+    doctest.testmod(verbose=True, optionflags=doctest.IGNORE_EXCEPTION_DETAIL)
 
 
